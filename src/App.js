@@ -8,8 +8,8 @@ const App = () => {
 
         <BrowserRouter>
             <Header />
-          {/* <RouterList/>
-            <Footer /> */}
+          <RouterList/>
+            <Footer />
         </BrowserRouter>
     </div>
   );
