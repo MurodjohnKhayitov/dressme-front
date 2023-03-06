@@ -4,7 +4,10 @@ import 'swiper/swiper-bundle.css';
 import "swiper/css";
 import "swiper/css/pagination";
 import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper';
-import { next, category, arrowBottomFull, mouse, toBottom } from '../../assets/imgs'
+import { next, category, arrowBottomFull, mouse, toBottom, markets } from '../../assets/imgs'
+import styles from './clothers.module.css'
+import { GrNext, GrPrevious } from 'react-icons/gr';
+import Slider from "react-slick";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -92,31 +95,116 @@ export default function MainPageSliders() {
         },
 
     ])
+    const NextArrow = (props) => {
+        const { onClick } = props;
+        return (
+            <div className={styles.NextArrow} onClick={onClick}>
+                <button className="next">
+                    <GrNext />
+                </button>
+            </div>
+        );
+    };
+
+    const PrevArrow = (props) => {
+        const { onClick } = props;
+        return (
+            <div className={styles.PrevArrow} onClick={onClick}>
+                <button className="prev">
+                    <GrPrevious />
+                </button>
+            </div>
+        );
+    };
+    let settings = {
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        initialSlide: 0,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 5,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    initialSlide: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    };
+    let settings1 = {
+        nextArrow: <NextArrow />,
+        prevArrow: <PrevArrow />,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 6,
+        slidesToScroll: 1,
+        initialSlide: 0,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 6,
+                    slidesToScroll: 1,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    initialSlide: 2
+                }
+            },
+            {
+                breakpoint: 480,
+                settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                }
+            }
+        ]
+    };
 
     return (
         <div className='box-border flex flex-col 	'>
-            <div className="h-fit md:px-[130px]   m-auto  max-w-[1440px] xs:px-[100px] ss:px-[36px] ">
+            <div className="h-fit md:px-[80px]   m-auto  max-w-[1440px] xs:px-[100px] ss:px-[36px] ">
                 <div className='w-full 		my-5 py-7 xs:block ss:hidden'>
-                    <Carousel
-                        responsive={responsive1}
-                        //   autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                        autoPlay={true}
-                        autoPlaySpeed={5000}
-                        infinite={true}
-                        className='w-[100%] flex justify-between	py-3	pl-2'
+                    <Slider {...settings} className='w-[100%] flex xs:justify-between'
                     >
                         {
                             carosuelData?.map(data => {
                                 return (
                                     data.Category.map(data => {
                                         return (
-                                            <div key={data.id} className='w-[95%] h-[260px] rounded  '>
+                                            <div key={data.id} className='!w-[95%] h-[260px] rounded ml-1 '>
                                                 <div className='w-full h-[230px] bg-bgColor border border-solid	border-borderColorCard '>
                                                     {data?.img ? <img src={data?.img} alt="student" /> : null}
                                                 </div>
                                                 <div className='h-12.5 flex items-center justify-start'>
-                                                    <p className='not-italic mt-3 mr-2 font-medium ss:text-lg lg:text-xl leading-6 text-black'>{data?.type || "type"}
-                                                        <span className='not-italic font-normal text-base leading-4 text-gray-500'>({data?.count || "0"})</span></p>
+                                                    <p className='not-italic font-medium text-base leading-4 text-black mt-3 mr-2  '>{data?.type || "type"}
+                                                        <span className='not-italic font-normal text-xs leading-4 ml-1.5 text-gray-500'>({data?.count || "0"})</span></p>
                                                 </div>
                                             </div>
                                         )
@@ -125,8 +213,9 @@ export default function MainPageSliders() {
                             })
                         }
 
-                    </Carousel>
+                    </Slider>
                 </div>
+                {/* carosuel hidden bloack */}
                 <div className="w-full h-fit xs:hidden  flex  flex-wrap gap-y-1	 justify-between   	my-5 py-7">
                     {
                         carosuelData?.map(data => {
@@ -151,21 +240,15 @@ export default function MainPageSliders() {
 
                 </div>
                 <div className='w-full 		my-5 py-7'>
-                    <Carousel
-                        responsive={responsive2}
-                        //   autoPlay={this.props.deviceType !== "mobile" ? true : false}
-                        autoPlay={true}
-                        autoPlaySpeed={5000}
-                        infinite={true}
-                        className='w-[100%] flex justify-between  		'
+                    <Slider {...settings1} className='w-[100%] flex xs:justify-between'
                     >
                         {
                             carosuelData?.map(data => {
                                 return (
                                     data.campany.map(data => {
                                         return (
-                                            <div key={data?.id} className='w-[95%] h-[100px] rounded-lg bg-gray-100 flex items-center justify-center select-none'>
-                                                <p className='not-italic font-medium text-xl leading-6 text-center text-black'>{data?.type || "0"}</p>
+                                            <div key={data?.id} className='!w-[95%] h-[100px] rounded-lg bg-catalogBg flex items-center justify-center select-none border border-solid border-searchBgColor'>
+                                                <p className='w-full h-full flex items-center justify-center not-italic font-medium text-xl leading-6 text-center text-black '>{data?.type || "0"}</p>
 
                                             </div>
 
@@ -177,7 +260,7 @@ export default function MainPageSliders() {
                         }
 
 
-                    </Carousel>
+                    </Slider>
                 </div>
 
 
@@ -198,37 +281,48 @@ export default function MainPageSliders() {
                 {
                     clothesToggle ?
 
-                        <div className='flex flex-wrap justify-between items-center ss:mt-3 md:mt-12 gap-4 py-7'>
+                        <div className='flex flex-wrap justify-between items-center ss:mt-3 md:mt-12 py-7'>
                             {/* 1 */}
-                            <div className='lg:w-[32%] md:w-[48%] ss:w-[100%] ss:h-20 xs:h-32 bg-bgColor rounded-lg p-6 flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
+                            <div className='w-[23%] ss:h-20 py-[20px] px-[16px] xs:h-[100px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
                                 <div className='w-full'>
                                     <p className='not-italic font-normal ss:text-sm xs:text-base leading-4 text-black'>Strengthen Health</p>
                                 </div>
                                 <div className='w-full flex justify-between items-center'>
-                                    <p className='not-italic font-semibold  ss:text-lg xs:text-2xl leading-7 text-black'>Sports clothes</p>
+                                    <p className='nnot-italic font-medium text-xl leading-6 text-black'>Sports clothes</p>
                                     <p><img src={category} alt="next" className='ss:w-[70%] xs:w-[100%]' /></p>
                                 </div>
                             </div>
                             {/* 2 */}
 
-                            <div className='lg:w-[32%] md:w-[48%] ss:w-[100%] ss:h-20 xs:h-32 bg-bgColor rounded-lg p-6 flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
+                            <div className='w-[23%] ss:h-20 xs:h-[100px] py-[20px] px-[16px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
                                 <div className='w-full'>
                                     <p className='not-italic font-normal ss:text-sm xs:text-base leading-4 text-black'>Based on your Interests</p>
                                 </div>
                                 <div className='w-full flex justify-between items-center'>
-                                    <p className='not-italic font-semibold  ss:text-lg xs:text-2xl leading-7 text-black'>Muslim clothes</p>
+                                    <p className='not-italic font-medium text-xl leading-6 text-black'>Muslim clothes</p>
                                     <p><img src={category} alt="next" className='ss:w-[70%] xs:w-[100%]' /></p>
                                 </div>
                             </div>
                             {/* 3*/}
 
-                            <div className='lg:w-[32%] md:w-[48%] ss:w-[100%] ss:h-20 xs:h-32 bg-bgColor rounded-lg p-6 flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
+                            <div className='w-[23%] ss:h-20 xs:h-[100px] py-[20px] px-[16px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
                                 <div className='w-full'>
                                     <p className='not-italic font-normal ss:text-sm xs:text-base leading-4 text-black'>Sort by your Money</p>
                                 </div>
                                 <div className='w-full flex justify-between items-center'>
-                                    <b className='flex items-end'><span>40$</span><span><img src={arrowBottomFull} alt="arrowBottomFull" /></span><span className='not-italic font-normal xs:text-base ss:text-sm leading-4 text-gray-500'>Under price</span></b>
+                                    <p className='flex items-end'><span className='not-italic font-normal text-base text-gray-500 mr-2'>ниже</span><span className='not-italic font-medium text-xl leading-6 text-black'>40$</span><span><img src={arrowBottomFull} alt="arrowBottomFull" /></span></p>
                                     <p><img src={category} alt="next" className='ss:w-[70%] xs:w-[100%]' /></p>
+                                </div>
+                            </div>
+                            {/* 4*/}
+
+                            <div className='w-[23%] ss:h-20 xs:h-[100px] py-[20px] px-[16px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
+                                <div className='w-full'>
+                                    <p className='not-italic font-normal ss:text-sm xs:text-base leading-4 text-black'>Магазины ближе к вам</p>
+                                </div>
+                                <div className='w-full flex justify-between items-center'>
+                                    <p className='flex mr-2 items-center'><span><img src={markets} alt="arrowBottomFull" className='mr-2' /></span><span className='not-italic font-medium text-xl leading-6 text-black'>Найти магазина</span></p>
+                                    <p><img src={category} alt="next" /></p>
                                 </div>
                             </div>
                         </div>
