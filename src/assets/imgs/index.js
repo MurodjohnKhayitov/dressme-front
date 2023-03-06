@@ -48,6 +48,7 @@ export {default as blog} from './blog.svg'
 export {default as businessBlack} from './business-black.svg'
 export {default as contact} from './contact.svg'
 export {default as helpBlack} from './help-black.svg'
+export {default as star} from './Star.svg'
 
 
 // -----Contact--------
