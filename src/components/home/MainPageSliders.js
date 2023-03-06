@@ -281,7 +281,7 @@ export default function MainPageSliders() {
                 {
                     clothesToggle ?
 
-                        <div className='flex flex-wrap justify-between items-center ss:mt-3 md:mt-12 gap-4 py-7'>
+                        <div className='flex flex-wrap justify-between items-center ss:mt-3 md:mt-12 py-7'>
                             {/* 1 */}
                             <div className='w-[23%] ss:h-20 py-[20px] px-[16px] xs:h-[100px] bg-bgColor rounded-lg  flex flex-wrap content-between cursor-pointer select-none border border-solid	border-borderColorCard'>
                                 <div className='w-full'>
